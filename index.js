@@ -48,6 +48,12 @@ async function run() {
             res.send(result)
         })
 
+        app.post('/part', async (req, res) => {
+            const data = req.body
+            const result = await partCollection.insertOne(data)
+            res.send(result)
+        })
+
         app.put('/', async (req, res) => {
 
         })
