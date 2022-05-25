@@ -21,6 +21,8 @@ async function run() {
         const partCollection = client.db('assignment-12').collection('parts')
         const reviewCollection = client.db('assignment-12').collection('reviews')
         const userInfoCollection = client.db('assignment-12').collection('userInfo')
+        const userCollection = client.db('assignment-12').collection('users')
+
 
         app.get('/part', async (req, res) => {
             const query = {}
@@ -61,8 +63,16 @@ async function run() {
             res.send(result)
         })
 
-        app.put('/', async (req, res) => {
-
+        app.put('/user/:email', async (req, res) => {
+            const email = req.params.email
+            const user = req.body
+            const filter = { email: email }
+            const options = { upsert: true }
+            const updateDoc = {
+                $set: user,
+            };
+            const result = await userCollection.updateOne(filter, updateDoc, options)
+            res.send(result)
         })
 
 
