@@ -20,6 +20,7 @@ async function run() {
         await client.connect()
         const partCollection = client.db('assignment-12').collection('parts')
         const reviewCollection = client.db('assignment-12').collection('reviews')
+        const userInfoCollection = client.db('assignment-12').collection('userInfo')
 
         app.get('/part', async (req, res) => {
             const query = {}
@@ -51,6 +52,12 @@ async function run() {
         app.post('/part', async (req, res) => {
             const data = req.body
             const result = await partCollection.insertOne(data)
+            res.send(result)
+        })
+
+        app.post('/userInfo', async (req, res) => {
+            const data = req.body
+            const result = await userInfoCollection.insertOne(data)
             res.send(result)
         })
 
