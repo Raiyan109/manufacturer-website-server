@@ -22,6 +22,7 @@ async function run() {
         const reviewCollection = client.db('assignment-12').collection('reviews')
         const userInfoCollection = client.db('assignment-12').collection('userInfo')
         const userCollection = client.db('assignment-12').collection('users')
+        const userOrderCollection = client.db('assignment-12').collection('userOrders')
 
 
         app.get('/part', async (req, res) => {
@@ -87,6 +88,25 @@ async function run() {
             const result = await userCollection.updateOne(filter, updateDoc, options)
             const token = jwt.sign({ email: email }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' })
             res.send(result, token)
+        })
+
+        // apis for users orders
+        app.get('/userOrder', async (req, res) => {
+            const customer = req.query.customer
+            const query = { customer: customer }
+            const userOrders = await userOrderCollection.find(query).toArray()
+            res.send(userOrders)
+        })
+
+        app.post('/userOrder', async (req, res) => {
+            const userOrder = req.body
+            const query = { customer: userOrder.customer }
+            const exists = await userOrderCollection.findOne(query)
+            if (exists) {
+                return res.send({ success: false, userOrder: exists })
+            }
+            const result = await userOrderCollection.insertOne(userOrder)
+            return res.send({ success: true, result })
         })
 
 
