@@ -63,6 +63,19 @@ async function run() {
             res.send(result)
         })
 
+        app.get('/user', async (req, res) => {
+            const query = {}
+            const cursor = userCollection.find(query)
+            const users = await cursor.toArray()
+            res.send(users)
+        })
+
+        app.post('/user', async (req, res) => {
+            const data = req.body
+            const result = await userCollection.insertOne(data)
+            res.send(result)
+        })
+
         app.put('/user/:email', async (req, res) => {
             const email = req.params.email
             const user = req.body
