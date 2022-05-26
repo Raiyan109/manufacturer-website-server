@@ -20,6 +20,7 @@ async function run() {
         await client.connect()
         const partCollection = client.db('assignment-12').collection('parts')
         const reviewCollection = client.db('assignment-12').collection('reviews')
+        const testimonialCollection = client.db('assignment-12').collection('testimonials')
         const userInfoCollection = client.db('assignment-12').collection('userInfo')
         const userCollection = client.db('assignment-12').collection('users')
         const userOrderCollection = client.db('assignment-12').collection('userOrders')
@@ -30,6 +31,13 @@ async function run() {
             const cursor = partCollection.find(query)
             const parts = await cursor.toArray()
             res.send(parts)
+        })
+
+        app.get('/testimonial', async (req, res) => {
+            const query = {}
+            const cursor = testimonialCollection.find(query)
+            const testimonials = await cursor.toArray()
+            res.send(testimonials)
         })
 
         app.get('/review', async (req, res) => {
