@@ -93,6 +93,8 @@ async function run() {
         // apis for users orders
         app.get('/userOrder', async (req, res) => {
             const customer = req.query.customer
+            const authorization = req.headers.authorization
+            console.log('auth header', authorization);
             const query = { customer: customer }
             const userOrders = await userOrderCollection.find(query).toArray()
             res.send(userOrders)
