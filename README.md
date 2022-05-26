@@ -1,6 +1,6 @@
 # Leviathan
 
-[Leviathan](https://github.com/facebook/create-react-app).
+[Leviathan](https://stormy-sea-79672.herokuapp.com/).
 
 - React
 - Firebase
