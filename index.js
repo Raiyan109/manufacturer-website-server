@@ -54,6 +54,7 @@ async function run() {
             const testimonials = await cursor.toArray()
             res.send(testimonials)
         })
+        // hi this is a code
 
         app.get('/review', async (req, res) => {
             const query = {}
