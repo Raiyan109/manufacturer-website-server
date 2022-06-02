@@ -166,7 +166,7 @@ async function run() {
 run().catch(console.dir)
 
 app.get('/', (req, res) => {
-    res.send('Hello from assignment 12 server')
+    res.send('Hellooo from assignment 12 server')
 })
 
 app.listen(port, () => {
